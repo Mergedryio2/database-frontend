@@ -14,6 +14,12 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      if (!backendUrl) {
+        console.error('Backend URL is not defined');
+        setErrorMessage('Configuration error: Backend URL is not set');
+        return;
+      }
+
       const response = await fetch(`${backendUrl}/`, {
         method: 'POST',
         headers: {

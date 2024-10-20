@@ -29,6 +29,12 @@ const DataInsert = () => {
         e.preventDefault(); // Prevent the default form submission
 
         try {
+            if (!backendUrl) {
+              console.error('Backend URL is not defined');
+              setErrorMessage('Configuration error: Backend URL is not set');
+              return;
+            }
+
             const response = await fetch(`${backendUrl}/datainsert`, {
                 method: 'POST',
                 headers: {

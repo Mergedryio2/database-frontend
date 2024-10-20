@@ -11,9 +11,9 @@ function App() {
       <div>
         {/* Define Routes */}
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/datainsert" element={<DataInsert />} />
+          <Route path="/api/" element={<Login />} />
+          <Route path="/api/dashboard" element={<Dashboard />} />
+          <Route path="/api/datainsert" element={<DataInsert />} />
         </Routes>
       </div>
     </Router>

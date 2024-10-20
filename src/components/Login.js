@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import the CSS file
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
 
 const Login = () => {
   // Initialize User state with an object
@@ -19,8 +19,8 @@ const Login = () => {
         setErrorMessage('Configuration error: Backend URL is not set');
         return;
       }
-
-      const response = await fetch(`${backendUrl}/`, {
+      
+      const response = await fetch(`${backendUrl}/api/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,9 +32,11 @@ const Login = () => {
   
       if (response.ok) {
         const data = await response.json();
-        console.log('Login successful:', data);
-        setErrorMessage('Login successful');
-        window.location.href = `${backendUrl}/dashboard`;
+        if (data != null){
+          console.log('Login successful:', data);
+          setErrorMessage('Login successful');
+          window.location.href = `/api/dashboard`;
+        }
       } else {
         const errorData = await response.text(); // Get raw response
         console.error('Error response:', errorData);
@@ -50,7 +52,7 @@ const Login = () => {
 
   const handleSignin = async () => {
     try {
-      const response = await fetch('./signin', {
+      const response = await fetch(`${backendUrl}/api/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

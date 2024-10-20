@@ -29,13 +29,7 @@ const DataInsert = () => {
         e.preventDefault(); // Prevent the default form submission
 
         try {
-            if (!backendUrl) {
-              console.error('Backend URL is not defined');
-              setErrorMessage('Configuration error: Backend URL is not set');
-              return;
-            }
-
-            const response = await fetch(`${backendUrl}/datainsert`, {
+            const response = await fetch(`${backendUrl}/api/datainsert`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -66,7 +60,7 @@ const DataInsert = () => {
         }
     };
     async function BackToDashboard (){
-        window.location.href = '/dashboard';
+        window.location.href = `/api/dashboard`;
     }
     
     return (

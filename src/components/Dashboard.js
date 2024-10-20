@@ -6,6 +6,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register necessary components for ChartJS
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
 
 const Dashboard = () => {
   const [returnData, setReturnData] = useState([]);
@@ -17,19 +19,12 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      if (!backendUrl) {
-        console.error('Backend URL is not defined');
-        setErrorMessage('Configuration error: Backend URL is not set');
-        return;
-      }
-
       setLoading(true);
       setError(null); // Reset error before fetching
-      const response = await fetch(`/dashboard`, {
-        method: 'POST',
+      const response = await fetch(`${backendUrl}/api/dashboard`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
 
@@ -137,8 +132,8 @@ const Dashboard = () => {
     <div>
       <Typography variant="h4" align="center" style={{ marginBottom: '20px' }}>Dashboard</Typography>
       <Grid item xs={12}>
-        <Button variant="contained" onClick={() => (window.location.href = '/datainsert')}>Go to Insert Student</Button>
-        <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/')}>Back to Login</Button>
+        <Button variant="contained" onClick={() => (window.location.href = '/api/datainsert')}>Go to Insert Student</Button>
+        <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/api/')}>Back to Login</Button>
       </Grid>
       <Grid container spacing={3}>
       <Grid item xs={15} sm={4}>

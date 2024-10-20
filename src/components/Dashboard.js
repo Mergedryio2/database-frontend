@@ -17,6 +17,12 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
+      if (!backendUrl) {
+        console.error('Backend URL is not defined');
+        setErrorMessage('Configuration error: Backend URL is not set');
+        return;
+      }
+
       setLoading(true);
       setError(null); // Reset error before fetching
       const response = await fetch(`/dashboard`, {

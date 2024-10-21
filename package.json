@@ -1,7 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://dashboard-api-git-main-yossaphan-kaenwongs-projects.vercel.app",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",

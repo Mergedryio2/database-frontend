@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import the CSS file
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const backendUrl = 'https://dashboard-api-git-main-yossaphan-kaenwongs-projects.vercel.app' ;
 
 const Login = () => {
   // Initialize User state with an object
@@ -20,7 +20,7 @@ const Login = () => {
         return;
       }
       
-      const response = await fetch(`${backendUrl}/api/`, {
+      const response = await fetch(`${backendUrl}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,13 +29,16 @@ const Login = () => {
       });
   
       console.log('Response Status:', response.status);
-  
+      if (response.status === 401) {
+        const errorData = await response.json(); // Get error message from server
+        setErrorMessage('Error: ' + (errorData.message || 'Unauthorized'));
+      }
       if (response.ok) {
         const data = await response.json();
         if (data != null){
           console.log('Login successful:', data);
           setErrorMessage('Login successful');
-          window.location.href = `/api/dashboard`;
+          window.location.href = `/dashboard`;
         }
       } else {
         const errorData = await response.text(); // Get raw response
@@ -52,13 +55,15 @@ const Login = () => {
 
   const handleSignin = async () => {
     try {
-      const response = await fetch(`${backendUrl}/api/signin`, {
+      const response = await fetch(`${backendUrl}/signin`, {
         method: 'POST',
+        mode: 'no-cors', // Set mode to 'no-cors'
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ Username: User.Username, Password: User.Password }), // Use the User object
       });
+      setErrorMessage('Sign in successful');
       const data = await response.json();
       return data;
     } catch (error) {

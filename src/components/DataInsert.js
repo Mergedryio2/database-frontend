@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './DataInsert.css'; // Import the CSS file
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
+const backendUrl = 'https://dashboard-api-git-main-yossaphan-kaenwongs-projects.vercel.app';
 
 
 const DataInsert = () => {
@@ -29,7 +29,7 @@ const DataInsert = () => {
         e.preventDefault(); // Prevent the default form submission
 
         try {
-            const response = await fetch(`${backendUrl}/api/datainsert`, {
+            const response = await fetch(`${backendUrl}/datainsert`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const DataInsert = () => {
         }
     };
     async function BackToDashboard (){
-        window.location.href = `/api/dashboard`;
+        window.location.href = `/dashboard`;
     }
     
     return (

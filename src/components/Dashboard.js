@@ -6,7 +6,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 // Register necessary components for ChartJS
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const backendUrl = 'https://dashboard-api-git-main-yossaphan-kaenwongs-projects.vercel.app';
 
 
 const Dashboard = () => {
@@ -21,7 +21,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       setError(null); // Reset error before fetching
-      const response = await fetch(`${backendUrl}/api/dashboard`, {
+      const response = await fetch(`${backendUrl}/dashboard`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ const Dashboard = () => {
 
   // Handle top records input change
   const handleTopRecordsChange = (event) => {
-    const value = parseInt(event.target.value, 10);
+    const value = parseInt(event.target.value, 100);
     setTopRecords(isNaN(value) ? 10 : value);
   };
 
@@ -132,8 +132,8 @@ const Dashboard = () => {
     <div>
       <Typography variant="h4" align="center" style={{ marginBottom: '20px' }}>Dashboard</Typography>
       <Grid item xs={12}>
-        <Button variant="contained" onClick={() => (window.location.href = '/api/datainsert')}>Go to Insert Student</Button>
-        <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/api/')}>Back to Login</Button>
+        <Button variant="contained" onClick={() => (window.location.href = '/datainsert')}>Go to Insert Student</Button>
+        <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/')}>Back to Login</Button>
       </Grid>
       <Grid container spacing={3}>
       <Grid item xs={15} sm={4}>

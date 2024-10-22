@@ -57,7 +57,6 @@ const Login = () => {
     try {
       const response = await fetch(`${backendUrl}/signin`, {
         method: 'POST',
-        mode: 'no-cors', // Set mode to 'no-cors'
         headers: {
           'Content-Type': 'application/json',
         },

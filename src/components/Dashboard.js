@@ -64,8 +64,8 @@ const Dashboard = () => {
 
   // Handle top records input change
   const handleTopRecordsChange = (event) => {
-    const value = parseInt(event.target.value, 100);
-    setTopRecords(isNaN(value) ? 10 : value);
+    const value = parseInt(event.target.value, 10);
+    setTopRecords(isNaN(value) ? 100 : value);
   };
 
   // Sorting logic

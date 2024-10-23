@@ -209,23 +209,24 @@ const Dashboard = () => {
           )}
           </Grid>
           <Grid item xs={12}>
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Average Scores</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {returnAvgData.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>{JSON.stringify(item)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Grid>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell><strong>Average Scores</strong></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {returnAvgData.map((item, index) => (
+                    <TableRow key={index}>
+                      {/* Assuming item contains key-value pairs, display them neatly */}
+                      <TableCell>{`Education Level: ${item.Description}, Average DVRT: ${item.AverageDVRTScore}, Average Prestige: ${item.AveragePrestigeScore}`}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
     </div>
   );
 };

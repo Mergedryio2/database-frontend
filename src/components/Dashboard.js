@@ -152,7 +152,22 @@ const Dashboard = () => {
       backgroundColor: 'rgba(153, 102, 255, 0.6)',
     }],
   };
-
+  
+  const chartAverage = {
+    labels: returnAvgData.map((_, index) => `Level ${index + 1}`), // Static labels based on data length
+    datasets: [
+      {
+        label: 'Average Fathers Prestige Score',
+        data: returnAvgData.map(item => item.AveragePrestigeScore), // First dataset
+        backgroundColor: 'rgba(153, 102, 255, 0.6)',
+      },
+      {
+        label: 'Average DVRT Score',
+        data: returnAvgData.map(item => item.AverageDVRTScore), // Second dataset (change according to your field name)
+        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Different color for the second dataset
+      },
+    ],
+  };
 
   return (
     <div>
@@ -168,13 +183,10 @@ const Dashboard = () => {
         <Grid item xs={12} sm={4}>
           <Bar data={chartDataPrestige} />
         </Grid>
+        <Grid item xs={12} sm={4}>
+          <Bar data={chartAverage} />
+        </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField label="Filter" variant="outlined" fullWidth value={filter} onChange={handleFilterChange} />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
-        </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Average Score</Typography>
         </Grid>
@@ -203,6 +215,13 @@ const Dashboard = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Students Data</Typography>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField label="Filter" variant="outlined" fullWidth value={filter} onChange={handleFilterChange} />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
             </Grid>
         {loading ? (
           <CircularProgress style={{ margin: '20px auto' }} />

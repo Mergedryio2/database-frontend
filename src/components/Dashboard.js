@@ -23,6 +23,7 @@ const Dashboard = () => {
       setError(null); // Reset error before fetching
       const response = await fetch(`${backendUrl}/dashboard`, {
         method: 'GET',
+
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,8 +65,8 @@ const Dashboard = () => {
 
   // Handle top records input change
   const handleTopRecordsChange = (event) => {
-    const value = parseInt(event.target.value, 10);
-    setTopRecords(isNaN(value) ? 100 : value);
+    const value = parseInt(event.target.value, 100);
+    setTopRecords(isNaN(value) ? 10 : value);
   };
 
   // Sorting logic
@@ -102,7 +103,7 @@ const Dashboard = () => {
 
   // Chart Data Configuration
   const chartDataDVRT = {
-    labels: sortedData.map(item => `ID: ${item.StudentID}`),
+    labels: sortedData.map(item => `ID: ${item.studentID}`),
     datasets: [{
       label: 'DVRT Score',
       data: sortedData.map(item => item.DVRTID),
@@ -111,7 +112,7 @@ const Dashboard = () => {
   };
 
   const chartDataPrestige = {
-    labels: sortedData.map(item => `ID: ${item.StudentID}`),
+    labels: sortedData.map(item => `ID: ${item.studentID}`),
     datasets: [{
       label: 'Fathers Prestige Score',
       data: sortedData.map(item => item.FathersPrestigeScore),
@@ -119,14 +120,6 @@ const Dashboard = () => {
     }],
   };
 
-  const chartDataSchoolType = {
-    labels: sortedData.map(item => `ID: ${item.StudentID}`),
-    datasets: [{
-      label: 'Education Level',
-      data: sortedData.map(item => item.EducationID),
-      backgroundColor: 'rgba(153, 1, 255, 0.6)',
-    }],
-  };
 
   return (
     <div>
@@ -141,9 +134,6 @@ const Dashboard = () => {
         </Grid>
         <Grid item xs={15} sm={4}>
           <Bar data={chartDataPrestige} />
-        </Grid>
-        <Grid item xs={15} sm={4}>
-          <Bar data={chartDataSchoolType} />
         </Grid>
 
         <Grid item xs={12} sm={6}>

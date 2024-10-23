@@ -11,6 +11,7 @@ const backendUrl = 'https://dashboard-api-git-main-yossaphan-kaenwongs-projects.
 
 const Dashboard = () => {
   const [returnData, setReturnData] = useState([]);
+  const [returnAvgData, setReturnAvgData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('');
@@ -52,10 +53,42 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+  const fetchAvgScore = async () => {
+    try {
+      setLoading(true);
+      setError(null); // Reset error before fetching
+      const response = await fetch(`${backendUrl}/avgscore`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const newAvgScore = await response.json();
+      console.log('Fetched Avg Score:', newAvgScore);
+
+      // Check if the data has the expected structure
+      if (newAvgScore && Array.isArray(newAvgScore.recordset)) {
+        setReturnAvgData(newAvgScore.recordset);
+      } else {
+        console.error('Unexpected data format:', newAvgScore);
+        setError('Unexpected data format');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Error fetching data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
+    fetchAvgScore();
   }, []);
 
   // Handle filter input change
@@ -66,7 +99,7 @@ const Dashboard = () => {
   // Handle top records input change
   const handleTopRecordsChange = (event) => {
     const value = parseInt(event.target.value, 10);
-    setTopRecords(isNaN(value) ? 100 : value);
+    setTopRecords(isNaN(value) ? 10 : value);
   };
 
   // Sorting logic
@@ -128,8 +161,8 @@ const Dashboard = () => {
         <Button variant="contained" onClick={() => (window.location.href = '/datainsert')}>Go to Insert Student</Button>
         <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/')}>Back to Login</Button>
       </Grid>
-      <Grid container spacing={2}>
-      <Grid item xs={12} sm={4}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={4}>
           <Bar data={chartDataDVRT} />
         </Grid>
         <Grid item xs={12} sm={4}>
@@ -148,34 +181,50 @@ const Dashboard = () => {
         ) : error ? (
           <Typography color="error" variant="body1">{error}</Typography>
         ) : (
-          <Grid item xs={12}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    {Object.keys(sortedData[0] || {}).map((key, index) => (
-                      <TableCell key={index} onClick={() => requestSort(key)} style={{ cursor: 'pointer' }}>
-                        <strong>{key}</strong>
-                        {sortConfig.key === key ? (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼') : null}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {sortedData.map((item, rowIndex) => (
-                    <TableRow key={rowIndex}>
-                      {Object.values(item).map((value, cellIndex) => (
-                        <TableCell key={cellIndex}>{value}</TableCell>
+            <Grid item xs={12}>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {Object.keys(sortedData[0] || {}).map((key, index) => (
+                        <TableCell key={index} onClick={() => requestSort(key)} style={{ cursor: 'pointer' }}>
+                          <strong>{key}</strong>
+                          {sortConfig.key === key ? (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼') : null}
+                        </TableCell>
                       ))}
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                  </TableHead>
+                  <TableBody>
+                    {sortedData.map((item, rowIndex) => (
+                      <TableRow key={rowIndex}>
+                        {Object.values(item).map((value, cellIndex) => (
+                          <TableCell key={cellIndex}>{value}</TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
+          )}
           </Grid>
-        )}
-
-        
+          <Grid item xs={12}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Average Scores</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {returnAvgData.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell>{JSON.stringify(item)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Grid>
     </div>
   );

@@ -179,6 +179,7 @@ const Dashboard = () => {
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
+                  <strong>Average Score</strong>
                     <TableRow>
                       {returnAvgData.length > 0 && 
                         Object.keys(returnAvgData[0]).map((key, index) => (
@@ -207,6 +208,7 @@ const Dashboard = () => {
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
+                  <strong>Student Data</strong>
                     <TableRow>
                       {Object.keys(sortedData[0] || {}).map((key, index) => (
                         <TableCell key={index} onClick={() => requestSort(key)} style={{ cursor: 'pointer' }}>

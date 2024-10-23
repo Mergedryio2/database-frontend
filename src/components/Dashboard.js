@@ -175,11 +175,11 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
         </Grid>
+        <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Average Score</Typography>
         <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
-                  <strong>Average Score</strong>
                     <TableRow>
                       {returnAvgData.length > 0 && 
                         Object.keys(returnAvgData[0]).map((key, index) => (
@@ -199,6 +199,7 @@ const Dashboard = () => {
                 </Table>
               </TableContainer>
             </Grid>
+            <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Students Data</Typography>
         {loading ? (
           <CircularProgress style={{ margin: '20px auto' }} />
         ) : error ? (
@@ -208,7 +209,6 @@ const Dashboard = () => {
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
-                  <strong>Student Data</strong>
                     <TableRow>
                       {Object.keys(sortedData[0] || {}).map((key, index) => (
                         <TableCell key={index} onClick={() => requestSort(key)} style={{ cursor: 'pointer' }}>

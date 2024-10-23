@@ -128,7 +128,7 @@ const Dashboard = () => {
         <Button variant="contained" onClick={() => (window.location.href = '/datainsert')}>Go to Insert Student</Button>
         <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/')}>Back to Login</Button>
       </Grid>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
       <Grid item xs={15} sm={4}>
           <Bar data={chartDataDVRT} />
         </Grid>

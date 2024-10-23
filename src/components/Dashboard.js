@@ -65,8 +65,8 @@ const Dashboard = () => {
 
   // Handle top records input change
   const handleTopRecordsChange = (event) => {
-    const value = parseInt(event.target.value, 100);
-    setTopRecords(isNaN(value) ? 10 : value);
+    const value = parseInt(event.target.value, 10);
+    setTopRecords(isNaN(value) ? 100 : value);
   };
 
   // Sorting logic
@@ -129,10 +129,10 @@ const Dashboard = () => {
         <Button variant="outlined" style={{ marginLeft: '10px' }} onClick={() => (window.location.href = '/')}>Back to Login</Button>
       </Grid>
       <Grid container spacing={2}>
-      <Grid item xs={15} sm={4}>
+      <Grid item xs={12} sm={4}>
           <Bar data={chartDataDVRT} />
         </Grid>
-        <Grid item xs={15} sm={4}>
+        <Grid item xs={12} sm={4}>
           <Bar data={chartDataPrestige} />
         </Grid>
 

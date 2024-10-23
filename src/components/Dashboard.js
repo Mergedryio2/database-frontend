@@ -175,12 +175,35 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
         </Grid>
-
+        
         {loading ? (
           <CircularProgress style={{ margin: '20px auto' }} />
         ) : error ? (
           <Typography color="error" variant="body1">{error}</Typography>
         ) : (
+              <Grid item xs={12}>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      {returnAvgData.length > 0 && 
+                        Object.keys(returnAvgData[0]).map((key, index) => (
+                          <TableCell key={index}><strong>{key}</strong></TableCell>
+                        ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {returnAvgData.map((item, index) => (
+                      <TableRow key={index}>
+                        {Object.values(item).map((value, cellIndex) => (
+                            <TableCell key={cellIndex}>{value}</TableCell>
+                          ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Grid>
             <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table>
@@ -207,26 +230,6 @@ const Dashboard = () => {
               </TableContainer>
             </Grid>
           )}
-          </Grid>
-          <Grid item xs={12}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell><strong>Average Scores</strong></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {returnAvgData.map((item, index) => (
-                    <TableRow key={index}>
-                      {Object.values(item).map((value, cellIndex) => (
-                          <TableCell key={cellIndex}>{value}</TableCell>
-                        ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
           </Grid>
     </div>
   );

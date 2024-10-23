@@ -219,8 +219,9 @@ const Dashboard = () => {
                 <TableBody>
                   {returnAvgData.map((item, index) => (
                     <TableRow key={index}>
-                      {/* Assuming item contains key-value pairs, display them neatly */}
-                      <TableCell>{`Education Level: ${item.Description}, Average DVRT: ${item.AverageDVRTScore}, Average Prestige: ${item.AveragePrestigeScore}`}</TableCell>
+                      {Object.values(item).map((value, cellIndex) => (
+                          <TableCell key={cellIndex}>{value}</TableCell>
+                        ))}
                     </TableRow>
                   ))}
                 </TableBody>

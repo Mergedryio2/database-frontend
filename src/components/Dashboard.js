@@ -175,13 +175,7 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
         </Grid>
-        
-        {loading ? (
-          <CircularProgress style={{ margin: '20px auto' }} />
-        ) : error ? (
-          <Typography color="error" variant="body1">{error}</Typography>
-        ) : (
-              <Grid item xs={12}>
+        <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
@@ -204,6 +198,11 @@ const Dashboard = () => {
                 </Table>
               </TableContainer>
             </Grid>
+        {loading ? (
+          <CircularProgress style={{ margin: '20px auto' }} />
+        ) : error ? (
+          <Typography color="error" variant="body1">{error}</Typography>
+        ) : (
             <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table>

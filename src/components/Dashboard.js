@@ -175,7 +175,9 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <TextField label="Top Records" type="number" variant="outlined" fullWidth value={topRecords} onChange={handleTopRecordsChange} />
         </Grid>
-        <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Average Score</Typography>
+        <Grid item xs={12}>
+          <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Average Score</Typography>
+        </Grid>
         <Grid item xs={12}>
               <TableContainer component={Paper}>
                 <Table>
@@ -199,7 +201,9 @@ const Dashboard = () => {
                 </Table>
               </TableContainer>
             </Grid>
-            <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Students Data</Typography>
+            <Grid item xs={12}>
+              <Typography variant="h6" align="center" style={{ marginBottom: '10px' }}>Students Data</Typography>
+            </Grid>
         {loading ? (
           <CircularProgress style={{ margin: '20px auto' }} />
         ) : error ? (
